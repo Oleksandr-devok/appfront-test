@@ -53,8 +53,9 @@
             </div>
         @endif
 
-        <form action="{{ route('admin.update.product', $product->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.update.product', $product) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PATCH')
             <div class="form-group">
                 <label for="name">Product Name</label>
                 <input type="text" id="name" name="name" class="form-control" value="{{ old('name', $product->name) }}" required>

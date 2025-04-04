@@ -2,15 +2,14 @@
 
 namespace App\Mail;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use App\Models\Product;
 
 class PriceChangeNotification extends Mailable
 {
     public $product;
+
     public $oldPrice;
+
     public $newPrice;
 
     /**
@@ -33,6 +32,6 @@ class PriceChangeNotification extends Mailable
     public function build()
     {
         return $this->subject('Product Price Change Notification')
-                    ->view('emails.price-change');
+            ->view('emails.price-change');
     }
 }

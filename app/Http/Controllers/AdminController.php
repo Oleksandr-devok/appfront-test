@@ -2,73 +2,83 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendPriceChangeNotification;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Product;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
-use App\Jobs\SendPriceChangeNotification;
 
 class AdminController extends Controller
 {
-    public function loginPage()
-    {
-        return view('login');
-    }
+    // public function loginPage()
+    // {
+    //     return view('login');
+    // }
 
-    public function login(Request $request)
-    {
-        if (Auth::attempt($request->except('_token'))) {
-            return redirect()->route('admin.products');
-        }
+    // public function login(Request $request)
+    // {
 
-        return redirect()->back()->with('error', 'Invalid login credentials');
-    }
+    //     if (Auth::attempt($request->except('_token'))) {
+    //         return redirect()->route('admin.products');
+    //     }
 
-    public function logout()
-    {
-        Auth::logout();
-        return redirect()->route('login');
-    }
+    //     return redirect()->back()->with('error', 'Invalid login credentials');
+    // }
+
+    // public function logout()
+    // {
+    //     Auth::logout();
+
+    //     return redirect()->route('login');
+    // }
 
     public function products()
     {
-        $products = Product::all();
+        $products = Product::all(); // paginate this
+
         return view('admin.products', compact('products'));
     }
 
     public function editProduct($id)
     {
-        $product = Product::find($id);
-        return view('admin.edit_product', compact('product'));
+        // use route model binding
+        $product = Product::find($id); // find or fail(no need)
+
+        return view('admin.edit_product', compact('product')); // keep this
     }
 
     public function updateProduct(Request $request, $id)
     {
+        // create a product service
+        // use route model binding
         // Validate the name field
+        // use form request for validation
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3',
-        ]);
+        ]); // why validate only name (Validate others including image)
 
         if ($validator->fails()) {
             return redirect()
                 ->back()
                 ->withErrors($validator)
                 ->withInput();
-        }
+        } // there will be no need
 
         $product = Product::find($id);
 
         // Store the old price before updating
         $oldPrice = $product->price;
 
+        // why hit the database twice
         $product->update($request->all());
 
+        // move out this upload (i will have an upload image trait)
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $filename = $file->getClientOriginalExtension();
             $file->move(public_path('uploads'), $filename);
-            $product->image = 'uploads/' . $filename;
+            $product->image = 'uploads/'.$filename;
         }
 
         $product->save();
@@ -86,7 +96,7 @@ class AdminController extends Controller
                     $notificationEmail
                 );
             } catch (\Exception $e) {
-                 Log::error('Failed to dispatch price change notification: ' . $e->getMessage());
+                Log::error('Failed to dispatch price change notification: '.$e->getMessage());
             }
         }
 
@@ -95,6 +105,7 @@ class AdminController extends Controller
 
     public function deleteProduct($id)
     {
+        // use route model binding
         $product = Product::find($id);
         $product->delete();
 
@@ -108,6 +119,8 @@ class AdminController extends Controller
 
     public function addProduct(Request $request)
     {
+
+        // validate other parameters and use form requests
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3',
         ]);
@@ -122,14 +135,15 @@ class AdminController extends Controller
         $product = Product::create([
             'name' => $request->name,
             'description' => $request->description,
-            'price' => $request->price
+            'price' => $request->price,
         ]);
 
+        // use trait for image upload
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $filename = $file->getClientOriginalExtension();
             $file->move(public_path('uploads'), $filename);
-            $product->image = 'uploads/' . $filename;
+            $product->image = 'uploads/'.$filename;
         } else {
             $product->image = 'product-placeholder.jpg';
         }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -32,12 +32,13 @@ class ProductController extends Controller
         try {
             $curl = curl_init();
 
+            // use laravel http facade
             curl_setopt_array($curl, [
-                CURLOPT_URL => "https://open.er-api.com/v6/latest/USD",
+                CURLOPT_URL => 'https://open.er-api.com/v6/latest/USD',
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_TIMEOUT => 5,
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => "GET",
+                CURLOPT_CUSTOMREQUEST => 'GET',
             ]);
 
             $response = curl_exec($curl);
@@ -45,7 +46,7 @@ class ProductController extends Controller
 
             curl_close($curl);
 
-            if (!$err) {
+            if (! $err) {
                 $data = json_decode($response, true);
                 if (isset($data['rates']['EUR'])) {
                     return $data['rates']['EUR'];
