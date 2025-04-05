@@ -77,9 +77,7 @@
             <div class="form-group">
                 <label for="image">Current Image</label>
                 @if($product->image)
-                    <img src="{{ asset('storage/products/'.$product->image) }}" class="product-image" alt="{{ $product->name }}">
-
-                    
+                    <img src="{{ asset('storage/products/'.$product->image) }}" class="product-image" alt="{{ $product->name }}">                    
                 @endif
                 <input type="file" id="image" name="image" class="form-control">
                 <small>Leave empty to keep current image</small>

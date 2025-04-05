@@ -59,11 +59,10 @@ class ProductController extends Controller
             // $file->move(public_path('uploads'), $filename);
             // $product->image = 'uploads/' . $filename;
             $imageNameToStore = $this->uploadImage($request->file('image'), 'products');
-            
             $product->image =  $imageNameToStore;
             $product->save();
         } else {
-            $product->image = 'product-placeholder.jpg';
+            $product->image = 'product-placeholder.png';
         }
 
         $product->save();

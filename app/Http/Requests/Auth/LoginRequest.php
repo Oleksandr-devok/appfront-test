@@ -22,20 +22,20 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email', 'string','max:255'],
+            'email' => ['required', 'email', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'max:255']
         ];
     }
 
     public function messages(): array
-{
-    return [
-        'email.required' => 'A Valid Email is Required to Login',
-        'email.email' => 'Please Provide a Valid Email',
-        'email.string' => 'Please Provide a Valid Email',
-        'password.required' => 'Please Provide a Password',
-        'password.string' => 'Please Provide a Valid Password',
-        'password.min' => 'Please Provide a Valid Password'
-    ];
-}
+    {
+        return [
+            'email.required' => 'A Valid Email is Required to Login',
+            'email.email' => 'Please Provide a Valid Email',
+            'email.string' => 'Please Provide a Valid Email',
+            'password.required' => 'Please Provide a Password',
+            'password.string' => 'Please Provide a Valid Password',
+            'password.min' => 'Please Provide a Valid Password'
+        ];
+    }
 }

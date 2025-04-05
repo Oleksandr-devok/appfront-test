@@ -25,7 +25,14 @@ class ProductRequest extends FormRequest
             'name' => ['required', 'string', 'min:3', 'max:255'],
             'description' => ['required', 'string', 'max:255'],
             'price' => ['required', 'numeric', 'min:0'],
-            'image' => ['nullable', 'image', 'mimes:png,jpg,jpeg', 'max:2048'],
+            'image' => ['nullable', 'image', 'mimes:png,jpg,jpeg', 'max:5048'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'image.max' => 'Maximum image size allowed is 5MB.',
         ];
     }
 }
