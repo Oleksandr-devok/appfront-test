@@ -7,7 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 
-require_once 'auth.php'; // look for a modern way to import this
+require base_path('routes/auth.php'); // look for a modern way to import this
 
 Route::get('/', [ProductController::class, 'index']);
 

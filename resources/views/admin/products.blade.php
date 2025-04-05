@@ -113,8 +113,8 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <img src="{{ env('APP_URL') }}/{{ $product->image }}" width="50"
-                                            height="50" alt="{{ $product->name }}">
+                                        <img src="{{ asset('storage/products/'.$product->image) }}"  style="max-width: 100%; height: auto;"
+                                            alt="{{ $product->image }}">
 
                                     </div>
                                     <div class="modal-footer">

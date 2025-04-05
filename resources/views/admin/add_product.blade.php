@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,23 +12,28 @@
             margin: 0 auto;
             padding: 20px;
         }
+
         .form-group {
             margin-bottom: 15px;
         }
+
         .form-group label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
         }
+
         .form-control {
             width: 100%;
             padding: 8px;
             border: 1px solid #ddd;
             border-radius: 4px;
         }
+
         textarea.form-control {
             height: 150px;
         }
+
         .error-message {
             color: red;
             margin-top: 5px;
@@ -35,6 +41,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="admin-container">
         <h1>Add New Product</h1>
@@ -53,26 +60,37 @@
             @csrf
             <div class="form-group">
                 <label for="name">Product Name</label>
-                <input type="text" id="name" name="name" class="form-control" value="{{ old('name') }}" required>
+                <input type="text" id="name" name="name" class="form-control" value="{{ old('name') }}"
+                    required>
                 @error('name')
-                    <div class="error-message">{{ $message }}</div>
+                    <strong style="color: red; font-size: 10px;">{{ $message }}</strong>
                 @enderror
             </div>
 
             <div class="form-group">
                 <label for="description">Description</label>
                 <textarea id="description" name="description" class="form-control" required>{{ old('description') }}</textarea>
+                @error('description')
+                    <strong style="color: red; font-size: 10px;">{{ $message }}</strong>
+                @enderror
             </div>
 
             <div class="form-group">
                 <label for="price">Price</label>
-                <input type="number" id="price" name="price" step="0.01" class="form-control" value="{{ old('price') }}" required>
+                <input type="number" id="price" name="price" step="0.01" class="form-control"
+                    value="{{ old('price') }}" required>
+                @error('price')
+                    <strong style="color: red; font-size: 10px;">{{ $message }}</strong>
+                @enderror
             </div>
 
             <div class="form-group">
                 <label for="image">Product Image</label>
                 <input type="file" id="image" name="image" class="form-control">
                 <small>Leave empty to use default image</small>
+                @error('image')
+                    <strong style="color: red; font-size: 10px;">{{ $message }}</strong>
+                @enderror
             </div>
 
             <div class="form-group">
@@ -82,4 +100,5 @@
         </form>
     </div>
 </body>
+
 </html>

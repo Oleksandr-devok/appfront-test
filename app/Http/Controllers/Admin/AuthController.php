@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -13,10 +14,11 @@ class AuthController extends Controller
         return view('login');
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
+        $validated = $request->validated();
 
-        if (Auth::attempt($request->except('_token'))) {
+        if (Auth::attempt($validated)) {
 
             $request->session()->regenerate();
 

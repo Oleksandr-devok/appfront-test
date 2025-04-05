@@ -2,22 +2,25 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Traits\uploadImage;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Product\ProductRequest;
 use App\Jobs\SendPriceChangeNotification;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
+    use uploadImage;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // $products = Product::all(); // paginate this
-        $products = Product::latest()->paginate(1);
+      
+        $products = Product::latest()->paginate(20);
         return view('admin.products', compact('products'));
     }
 
@@ -32,32 +35,33 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        // validate other parameters and use form requests
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|min:3',
-        ]);
+        // // validate other parameters and use form requests
+        // $validator = Validator::make($request->all(), [
+        //     'name' => 'required|min:3',
+        // ]);
 
-        if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
+        // if ($validator->fails()) {
+        //     return redirect()
+        //         ->back()
+        //         ->withErrors($validator)
+        //         ->withInput();
+        // }
 
-        $product = Product::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'price' => $request->price,
-        ]);
+
+        $product = Product::create( $request->validated());
 
         // use trait for image upload
         if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $filename = $file->getClientOriginalExtension();
-            $file->move(public_path('uploads'), $filename);
-            $product->image = 'uploads/' . $filename;
+            // $file = $request->file('image');
+            // $filename = $file->getClientOriginalExtension();
+            // $file->move(public_path('uploads'), $filename);
+            // $product->image = 'uploads/' . $filename;
+            $imageNameToStore = $this->uploadImage($request->file('image'), 'products');
+            
+            $product->image =  $imageNameToStore;
+            $product->save();
         } else {
             $product->image = 'product-placeholder.jpg';
         }
