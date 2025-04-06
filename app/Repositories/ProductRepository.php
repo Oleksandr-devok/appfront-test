@@ -23,6 +23,15 @@ class ProductRepository implements ProductRepositoryInterface
         return $product->update($data);
     }
 
+    public function updateProductUsingCommand(Product $product, array $data)
+    {
+       
+        $product->update($data);
+        $product->save();
+
+        return $product;
+    }
+
     public function delete(Product $product): bool
     {
         return $product->delete();

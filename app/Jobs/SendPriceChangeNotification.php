@@ -19,9 +19,7 @@ class SendPriceChangeNotification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(protected $product, protected $oldPrice, protected $newPrice, protected $email)
-    {
-
+    public function __construct(protected $product, protected $oldPrice, protected $newPrice, protected $email) {
         
     }
 
@@ -38,6 +36,5 @@ class SendPriceChangeNotification implements ShouldQueue
                 $this->oldPrice,
                 $this->newPrice
             ));
-
     }
 }

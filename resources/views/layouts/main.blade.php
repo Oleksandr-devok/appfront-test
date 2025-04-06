@@ -9,6 +9,7 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     @stack('styles')
+    <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 </head>
 
 <body>
@@ -19,6 +20,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
     </script>
+      <script src="https://code.jquery.com/jquery-3.6.2.slim.js"
+        integrity="sha256-OflJKW8Z8amEUuCaflBZJ4GOg4+JnNh9JdVfoV+6biw=" crossorigin="anonymous"></script>
+     <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+     <script type="text/javascript">
+         $(document).ready(function() {
+             $('#table').DataTable();
+         });
+     </script>
 </body>
 
 </html>

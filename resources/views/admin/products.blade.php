@@ -28,7 +28,7 @@
 
 
 
-        <table class="admin-table">
+        <table class="admin-table table-responsive" id="table">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -100,12 +100,8 @@
                     </tr>
                 </tbody>
             @empty
-
                 <p class="bold text-center mt-3"><b>No Products Available at the moment</b></p>
             @endforelse
-
-
-
         </table>
         <div class=" d-flex justify-content-center mt-4">
             <div class="">
