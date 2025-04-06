@@ -23,7 +23,7 @@ class ProductTest extends TestCase
 
         $image = UploadedFile::fake()->image('product.jpg');
 
-        $service = app(\App\Services\ProductService::class);
+        $service = app(ProductService::class);
         $product = $service->createProduct($data, $image);
 
         $this->assertDatabaseHas('products', [
