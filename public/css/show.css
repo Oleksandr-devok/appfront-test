@@ -1,0 +1,14 @@
+.price-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+.price-usd {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #e74c3c;
+}
+.price-eur {
+    font-size: 1.5rem;
+    color: #7f8c8d;
+}

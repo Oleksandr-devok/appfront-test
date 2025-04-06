@@ -6,22 +6,16 @@ use Illuminate\Mail\Mailable;
 
 class PriceChangeNotification extends Mailable
 {
-    public $product;
-
-    public $oldPrice;
-
-    public $newPrice;
+   
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($product, $oldPrice, $newPrice)
+    public function __construct(protected $product,  protected $oldPrice, protected $newPrice)
     {
-        $this->product = $product;
-        $this->oldPrice = $oldPrice;
-        $this->newPrice = $newPrice;
+      
     }
 
     /**

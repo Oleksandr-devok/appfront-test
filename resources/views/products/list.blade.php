@@ -1,30 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-    <style>
-        .price-container {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 1rem;
-        }
-        .price-usd {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #e74c3c;
-        }
-        .price-eur {
-            font-size: 1.2rem;
-            color: #7f8c8d;
-        }
-    </style>
-</head>
-<body>
+@extends('layouts.main')
+@section('content')
+@section('title', 'Products List')
+    @push('styles')
+        <link rel="stylesheet" href="{{ asset('css/product-list.css') }}">
+    @endpush
     <div class="container">
         <h1>Products</h1>
 
@@ -32,7 +11,8 @@
             @forelse ($products as $product)
                 <div class="product-card">
                     @if ($product->image)
-                        <img src="{{ asset('storage/products/'.$product->image) }}" class="product-image" alt="{{ $product->name }}">
+                        <img src="{{ asset('storage/products/' . $product->image) }}" class="product-image"
+                            alt="{{ $product->name }}">
                     @endif
                     <div class="product-info">
                         <h2 class="product-title">{{ $product->name }}</h2>
@@ -50,7 +30,7 @@
                 </div>
             @endforelse
         </div>
-         <div class=" d-flex justify-content-center mt-4">
+        <div class=" d-flex justify-content-center mt-4">
             <div class="">
                 {{ $products->links() }}
             </div>
@@ -60,5 +40,4 @@
             <p>Exchange Rate: 1 USD = {{ number_format($exchangeRate, 4) }} EUR</p>
         </div>
     </div>
-</body>
-</html>
+@endsection

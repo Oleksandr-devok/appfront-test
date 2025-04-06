@@ -1,48 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Product</title>
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-    <style>
-        .admin-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        textarea.form-control {
-            height: 150px;
-        }
-
-        .error-message {
-            color: red;
-            margin-top: 5px;
-            font-size: 0.9em;
-        }
-    </style>
-</head>
-
-<body>
+@extends('../layouts.main')
+@section('content')
+@section('title', 'Add Products')
+    @push('styles')
+        <link rel="stylesheet" href="{{ asset('css/add-product.css') }}">
+    @endpush
     <div class="admin-container">
         <h1>Add New Product</h1>
 
@@ -99,6 +60,4 @@
             </div>
         </form>
     </div>
-</body>
-
-</html>
+@endsection

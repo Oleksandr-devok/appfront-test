@@ -1,57 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Product</title>
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-    <style>
-        .admin-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        textarea.form-control {
-            height: 150px;
-        }
-
-        .product-image {
-            max-width: 200px;
-            margin-bottom: 10px;
-        }
-
-        .error-message {
-            color: red;
-            margin-top: 5px;
-            font-size: 0.9em;
-        }
-        .error-text{
-            list-style-type: none;
-            color: red;
-        }
-    </style>
-</head>
-
-<body>
+@extends('../layouts.main')
+@section('content')
+@section('title', 'Edit Product')
+@push('styles')
+        <link rel="stylesheet" href="{{ asset('css/edit-product.css') }}">
+    @endpush
     <div class="admin-container">
         <h1>Edit Product</h1>
 
@@ -113,6 +65,4 @@
             </div>
         </form>
     </div>
-</body>
-
-</html>
+@endsection

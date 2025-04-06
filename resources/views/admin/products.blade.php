@@ -1,56 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Products</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-    <style>
-        .admin-container {
-            padding: 20px;
-        }
-
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .admin-table th,
-        .admin-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        .admin-table th {
-            background-color: #f2f2f2;
-        }
-
-        .admin-table tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        .success-message {
-            background-color: #d4edda;
-            color: #155724;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 4px;
-        }
-    </style>
-</head>
-
-<body>
+@extends('../layouts.main')
+@section('content')
+@section('title', 'All Products')
+    @push('styles')
+        <link rel="stylesheet" href="{{ asset('css/products.css') }}">
+    @endpush
     <div class="admin-container">
         <div class="admin-header">
             <h1>Admin - Products</h1>
@@ -113,8 +66,8 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <img src="{{ asset('storage/products/'.$product->image) }}"  style="max-width: 100%; height: auto;"
-                                            alt="{{ $product->image }}">
+                                        <img src="{{ asset('storage/products/' . $product->image) }}"
+                                            style="max-width: 100%; height: auto;" alt="{{ $product->image }}">
 
                                     </div>
                                     <div class="modal-footer">
@@ -152,7 +105,7 @@
             @endforelse
 
 
-           
+
         </table>
         <div class=" d-flex justify-content-center mt-4">
             <div class="">
@@ -160,12 +113,4 @@
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
-    </script>
-</body>
-
-</html>
+@endsection
