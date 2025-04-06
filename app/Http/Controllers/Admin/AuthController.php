@@ -19,13 +19,11 @@ class AuthController extends Controller
         $validated = $request->validated();
 
         if (Auth::attempt($validated)) {
-
             $request->session()->regenerate();
-
             return redirect()->route('admin.products');
         }
 
-        return redirect()->back()->with('error', 'Invalid login credentials');
+        return redirect()->route('login')->with('error', 'Invalid login credentials');
     }
 
     public function logout(Request $request)
