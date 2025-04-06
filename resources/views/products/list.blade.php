@@ -21,7 +21,7 @@
                             <span class="price-usd">${{ number_format($product->price, 2) }}</span>
                             <span class="price-eur">€{{ number_format($product->price * $exchangeRate, 2) }}</span>
                         </div>
-                        <a href="{{ route('products.show', $product) }}" class="btn btn-primary">View Details</a>
+                        <a href="{{ route('products.view', $product->id) }}" class="btn btn-primary">View Details</a>
                     </div>
                 </div>
             @empty

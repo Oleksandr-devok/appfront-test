@@ -1,8 +1,8 @@
-@extends('../layouts.main')
+@extends('.../layouts.main')
 @section('content')
 @section('title', 'Product Detail')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('css/product-list.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/show.css') }}">
     @endpush
     <div class="container">
         <div class="product-detail">

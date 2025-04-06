@@ -10,7 +10,7 @@ trait GetExchangeRate
     public function getExchangeRate()
     {
         try {
-            $response = Http::timeout(5)->get(env('EXCHANGE_RATE_API_URL'));
+            $response = Http::timeout(5)->get(env('EXCHANGE_RATE_API_URL'))->throw();
 
             if ($response->successful()) {
                 $data = $response->json();

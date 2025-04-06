@@ -68,12 +68,6 @@ class ProductController extends Controller
         return redirect()->route('admin.products')->with('success', 'Product updated successfully');
     }
 
-    public function show(Product $product)
-    {
-        $exchangeRate = $this->getExchangeRate();
-
-        return view('products.show', compact('product', 'exchangeRate'));
-    }
 
     public function destroy(Product $product)
     {
