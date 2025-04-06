@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use App\Services\ProductService;
 use Illuminate\Pagination\Paginator;
+use App\Repositories\ProductRepository;
+use Illuminate\Support\ServiceProvider;
+use App\Repositories\ProductRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -12,7 +15,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(
+            ProductRepositoryInterface::class,
+            ProductRepository::class
+        );
     }
 
     /**

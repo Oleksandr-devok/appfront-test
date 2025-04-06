@@ -11,27 +11,7 @@ use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
-    // public function loginPage()
-    // {
-    //     return view('login');
-    // }
-
-    // public function login(Request $request)
-    // {
-
-    //     if (Auth::attempt($request->except('_token'))) {
-    //         return redirect()->route('admin.products');
-    //     }
-
-    //     return redirect()->back()->with('error', 'Invalid login credentials');
-    // }
-
-    // public function logout()
-    // {
-    //     Auth::logout();
-
-    //     return redirect()->route('login');
-    // }
+   
 
     public function products()
     {
@@ -103,53 +83,53 @@ class AdminController extends Controller
         return redirect()->route('admin.products')->with('success', 'Product updated successfully');
     }
 
-    public function deleteProduct($id)
-    {
-        // use route model binding
-        $product = Product::find($id);
-        $product->delete();
+    // public function deleteProduct($id)
+    // {
+    //     // use route model binding
+    //     $product = Product::find($id);
+    //     $product->delete();
 
-        return redirect()->route('admin.products')->with('success', 'Product deleted successfully');
-    }
+    //     return redirect()->route('admin.products')->with('success', 'Product deleted successfully');
+    // }
 
-    public function addProductForm()
-    {
-        return view('admin.add_product');
-    }
+    // public function addProductForm()
+    // {
+    //     return view('admin.add_product');
+    // }
 
-    public function addProduct(Request $request)
-    {
+    // public function addProduct(Request $request)
+    // {
 
-        // validate other parameters and use form requests
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|min:3',
-        ]);
+    //     // validate other parameters and use form requests
+    //     $validator = Validator::make($request->all(), [
+    //         'name' => 'required|min:3',
+    //     ]);
 
-        if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
+    //     if ($validator->fails()) {
+    //         return redirect()
+    //             ->back()
+    //             ->withErrors($validator)
+    //             ->withInput();
+    //     }
 
-        $product = Product::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'price' => $request->price,
-        ]);
+    //     $product = Product::create([
+    //         'name' => $request->name,
+    //         'description' => $request->description,
+    //         'price' => $request->price,
+    //     ]);
 
-        // use trait for image upload
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $filename = $file->getClientOriginalExtension();
-            $file->move(public_path('uploads'), $filename);
-            $product->image = 'uploads/'.$filename;
-        } else {
-            $product->image = 'product-placeholder.jpg';
-        }
+    //     // use trait for image upload
+    //     if ($request->hasFile('image')) {
+    //         $file = $request->file('image');
+    //         $filename = $file->getClientOriginalExtension();
+    //         $file->move(public_path('uploads'), $filename);
+    //         $product->image = 'uploads/'.$filename;
+    //     } else {
+    //         $product->image = 'product-placeholder.jpg';
+    //     }
 
-        $product->save();
+    //     $product->save();
 
-        return redirect()->route('admin.products')->with('success', 'Product added successfully');
-    }
+    //     return redirect()->route('admin.products')->with('success', 'Product added successfully');
+    // }
 }

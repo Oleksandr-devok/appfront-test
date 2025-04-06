@@ -14,7 +14,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 });
 
 //focus on auth
-Route::middleware(['unauth'])->group(function () {
+Route::middleware(['unauthenticated'])->group(function () {
     Route::get('/login', [AuthController::class, 'loginPage'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 });

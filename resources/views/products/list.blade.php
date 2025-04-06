@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <style>
         .price-container {
@@ -47,6 +49,11 @@
                     <p>No products found.</p>
                 </div>
             @endforelse
+        </div>
+         <div class=" d-flex justify-content-center mt-4">
+            <div class="">
+                {{ $products->links() }}
+            </div>
         </div>
 
         <div style="margin-top: 20px; text-align: center; font-size: 0.9rem; color: #7f8c8d;">

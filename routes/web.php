@@ -37,3 +37,4 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         return Redirect::route('admin.products');
     });;
 });
+

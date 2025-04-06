@@ -14,7 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
 
         $middleware->alias([
-            'unauth' => RedirectIfAuthenticated::class
+            'unauthenticated' => RedirectIfAuthenticated::class
         ]);
      
     })
