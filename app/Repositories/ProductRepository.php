@@ -2,9 +2,7 @@
 
 namespace App\Repositories;
 
-
 use App\Models\Product;
-use App\Repositories\ProductRepositoryInterface;
 
 class ProductRepository implements ProductRepositoryInterface
 {
@@ -25,7 +23,7 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function updateProductUsingCommand(Product $product, array $data)
     {
-       
+
         $product->update($data);
         $product->save();
 
@@ -36,5 +34,4 @@ class ProductRepository implements ProductRepositoryInterface
     {
         return $product->delete();
     }
-
 }

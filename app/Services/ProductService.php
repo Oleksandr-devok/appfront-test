@@ -2,35 +2,36 @@
 
 namespace App\Services;
 
-use App\Models\Product;
-use Illuminate\Http\Request;
 use App\Http\Traits\uploadImage;
-use Illuminate\Support\Facades\Log;
 use App\Jobs\SendPriceChangeNotification;
+use App\Models\Product;
 use App\Repositories\ProductRepositoryInterface;
+use Illuminate\Support\Facades\Log;
 
 class ProductService
 {
-
     use uploadImage;
+
     protected $productRepository;
+
     public function __construct(ProductRepositoryInterface $productRepository)
     {
         $this->productRepository = $productRepository;
     }
 
-
     public function createProduct(array $data, $image = null): Product
     {
-   
+
         if ($image) {
             $imageName = $this->uploadImage($image, 'products');
-            $data["image"] =  $imageName;
+            $data['image'] = $imageName;
             $product = $this->productRepository->create($data);
+
             return $product;
         } else {
-            $data["image"] =  'product-placeholder.png';
+            $data['image'] = 'product-placeholder.png';
             $product = $this->productRepository->create($data);
+
             return $product;
         }
     }
@@ -38,36 +39,34 @@ class ProductService
     public function updateProduct(Product $product, array $data, $image = null): bool
     {
         $oldPrice = $product->price;
-      
+
         if ($image) {
             $imageName = $this->uploadImage($image, 'products');
             $data['image'] = $imageName;
         }
-       
+
         $updated = $this->productRepository->update($product, $data);
-        
+
         if ($oldPrice != $product->price) {
-            $this->sendPriceChangeNotification($product,  $oldPrice);
+            $this->sendPriceChangeNotification($product, $oldPrice);
         }
+
         return $updated;
     }
 
     public function updateProductUsingCommand($id, array $data)
     {
-         $this->validateProductData($data);
+        $this->validateProductData($data);
 
         $product = Product::find($id);
 
-        if (!$product) {
+        if (! $product) {
             throw new \Exception('Product not found');
         }
         $oldPrice = $product->price;
 
-       
         $product->update($data);
-        $product->save();
 
-       
         if (isset($data['price']) && $oldPrice != $product->price) {
             $this->sendPriceChangeNotification($product, $oldPrice);
         }
@@ -92,7 +91,7 @@ class ProductService
             }
         }
 
-        if (isset($data['price']) && !is_numeric($data['price'])) {
+        if (isset($data['price']) && ! is_numeric($data['price'])) {
             throw new \Exception('Price must be a valid number.');
         }
     }
@@ -109,7 +108,7 @@ class ProductService
                 $notificationEmail
             );
         } catch (\Exception $e) {
-            Log::error('Failed to dispatch price change notification: ' . $e->getMessage());
+            Log::error('Failed to dispatch price change notification: '.$e->getMessage());
         }
     }
 }

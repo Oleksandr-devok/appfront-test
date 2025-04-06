@@ -20,6 +20,7 @@ class RedirectIfAuthenticated
         if (Auth::check()) {
             return redirect()->route('admin.products'); // Redirect if already logged in
         }
+
         return $next($request);
     }
 }

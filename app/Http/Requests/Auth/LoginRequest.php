@@ -23,7 +23,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'email' => ['required', 'email', 'string', 'max:255'],
-            'password' => ['required', 'string', 'min:8', 'max:255']
+            'password' => ['required', 'string', 'min:8', 'max:255'],
         ];
     }
 
@@ -35,7 +35,7 @@ class LoginRequest extends FormRequest
             'email.string' => 'Please Provide a Valid Email',
             'password.required' => 'Please Provide a Password',
             'password.string' => 'Please Provide a Valid Password',
-            'password.min' => 'Please Provide a Valid Password'
+            'password.min' => 'Please Provide a Valid Password',
         ];
     }
 }

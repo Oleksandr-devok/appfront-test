@@ -1,11 +1,11 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Route;
 
 require base_path('routes/auth.php'); // look for a modern way to import this
 
@@ -16,7 +16,7 @@ Route::get('/products/{product_id}', [ProductController::class, 'show'])->name('
 // Route::get('/login', [AdminController::class, 'loginPage'])->name('login');
 // Route::post('/login', [AdminController::class, 'login'])->name('login.submit');
 
-//add role based access control (only admin can see this)
+// add role based access control (only admin can see this)
 Route::middleware(['auth'])->prefix('admin')->group(function () {
     // Route::get('/admin/products', [AdminController::class, 'products'])->name('admin.products');
     // Route::get('/admin/products/add', [AdminController::class, 'addProductForm'])->name('admin.add.product');
@@ -32,9 +32,8 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         'edit' => 'admin.edit.product',
         'update' => 'admin.update.product',
         'destroy' => 'admin.delete.product',
-        'store' => 'admin.store.product'
+        'store' => 'admin.store.product',
     ])->missing(function (Request $request) {
         return Redirect::route('admin.products');
-    });;
+    });
 });
-

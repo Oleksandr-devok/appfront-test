@@ -2,10 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Product;
-use Illuminate\Console\Command;
 use App\Services\ProductService;
-use App\Jobs\SendPriceChangeNotification;
+use Illuminate\Console\Command;
 
 class UpdateProduct extends Command
 {
@@ -22,6 +20,7 @@ class UpdateProduct extends Command
      * @var string
      */
     protected $description = 'Update a product with the specified details';
+
     protected $productService;
 
     /**
@@ -32,7 +31,7 @@ class UpdateProduct extends Command
     public function __construct(ProductService $productService)
     {
         parent::__construct();
-         $this->productService = $productService;
+        $this->productService = $productService;
     }
 
     /**
@@ -61,7 +60,7 @@ class UpdateProduct extends Command
             $this->productService->updateProductUsingCommand($id, $data);
             $this->info('Product updated successfully.');
         } catch (\Exception $e) {
-            $this->error('Error: ' . $e->getMessage());
+            $this->error('Error: '.$e->getMessage());
         }
     }
 }

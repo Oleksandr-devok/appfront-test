@@ -2,23 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Product;
-use Illuminate\Http\Request;
-use App\Http\Traits\uploadImage;
-use App\Services\ProductService;
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use App\Jobs\SendPriceChangeNotification;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Product\ProductRequest;
 use App\Http\Traits\GetExchangeRate;
+use App\Http\Traits\uploadImage;
+use App\Models\Product;
 use App\Repositories\ProductRepositoryInterface;
+use App\Services\ProductService;
 
 class ProductController extends Controller
 {
-    use uploadImage, GetExchangeRate;
+    use GetExchangeRate, uploadImage;
 
     protected $productService;
+
     protected $productRepository;
 
     public function __construct(ProductService $productService, ProductRepositoryInterface $productRepository)
@@ -26,15 +23,16 @@ class ProductController extends Controller
         $this->productService = $productService;
         $this->productRepository = $productRepository;
     }
-   
+
     public function index()
     {
-        
+
         $products = $this->productRepository->allProducts();
+
         return view('admin.products', [
-            'products' => $products
+            'products' => $products,
         ]);
-        
+
     }
 
     public function create()
@@ -42,18 +40,17 @@ class ProductController extends Controller
         return view('admin.add_product');
     }
 
-  
     public function store(ProductRequest $request)
     {
-      
+
         $this->productService->createProduct(
             $request->validated(),
             $request->file('image')
         );
+
         return redirect()->route('admin.products')->with('success', 'Product added successfully');
     }
 
-  
     public function edit(Product $product)
     {
         return view('admin.edit_product', compact('product')); // keep this
@@ -74,13 +71,15 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $exchangeRate = $this->getExchangeRate();
+
         return view('products.show', compact('product', 'exchangeRate'));
     }
-   
+
     public function destroy(Product $product)
     {
         $this->productService->deleteProduct($product);
-        //delete image
+
+        // delete image
         return redirect()->route('admin.products')->with('success', 'Product deleted successfully');
     }
 }

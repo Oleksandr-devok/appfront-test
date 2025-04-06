@@ -2,10 +2,8 @@
 
 namespace App\Http\Traits;
 
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
-
-
+use Illuminate\Support\Facades\Log;
 
 trait GetExchangeRate
 {
@@ -13,7 +11,7 @@ trait GetExchangeRate
     {
         try {
             $response = Http::timeout(5)->get(env('EXCHANGE_RATE_API_URL'));
-    
+
             if ($response->successful()) {
                 $data = $response->json();
                 if (isset($data['rates']['EUR'])) {
@@ -27,4 +25,3 @@ trait GetExchangeRate
         return env('EXCHANGE_RATE', 0.85);
     }
 }
-

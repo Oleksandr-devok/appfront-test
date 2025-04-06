@@ -2,11 +2,10 @@
 
 namespace App\Providers;
 
-use App\Services\ProductService;
-use Illuminate\Pagination\Paginator;
 use App\Repositories\ProductRepository;
-use Illuminate\Support\ServiceProvider;
 use App\Repositories\ProductRepositoryInterface;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {

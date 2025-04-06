@@ -13,15 +13,12 @@ class SendPriceChangeNotification implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable;
 
-
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(protected $product, protected $oldPrice, protected $newPrice, protected $email) {
-        
-    }
+    public function __construct(protected $product, protected $oldPrice, protected $newPrice, protected $email) {}
 
     /**
      * Execute the job.

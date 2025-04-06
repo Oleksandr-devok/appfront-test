@@ -5,14 +5,11 @@ namespace App\Http\Controllers;
 use App\Jobs\SendPriceChangeNotification;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
-   
-
     public function products()
     {
         $products = Product::all(); // paginate this
