@@ -1,16 +1,15 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Redirect;
-use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Product\ProductController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Route;
 
-require base_path('routes/auth.php'); 
+require base_path('routes/auth.php');
 
 Route::get('/', [ProductController::class, 'index']);
 Route::get('/products/{product_id}', [ProductController::class, 'show'])->name('products.view');
-
 
 Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::resource('products', AdminProductController::class)->names([

@@ -2,13 +2,12 @@
 
 namespace Tests\Feature\Product;
 
-use Tests\TestCase;
 use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Bus;
-use Database\Factories\ProductFactory;
 use Illuminate\Support\Facades\Storage;
+use Tests\TestCase;
 
 class ProductTest extends TestCase
 {
@@ -34,11 +33,11 @@ class ProductTest extends TestCase
             'image' => $product->image,
         ]);
 
-        Storage::disk('public')->assertExists('products/' . $product->image);
+        Storage::disk('public')->assertExists('products/'.$product->image);
         $lastproductSavedToDb = Product::orderBy('id', 'desc')->first();
-        $this->assertEquals($lastproductSavedToDb->name,  "Test Product");
-        $this->assertEquals($lastproductSavedToDb->description,  "Some description");
-        $this->assertEquals($lastproductSavedToDb->price,  99.99);
+        $this->assertEquals($lastproductSavedToDb->name, 'Test Product');
+        $this->assertEquals($lastproductSavedToDb->description, 'Some description');
+        $this->assertEquals($lastproductSavedToDb->price, 99.99);
     }
 
     public function test_that_product_can_be_created_without_image()
@@ -94,11 +93,9 @@ class ProductTest extends TestCase
             'price' => 100,
         ]);
 
-
         $this->expectException(\Exception::class);
 
         $productService = app(ProductService::class);
-
 
         $productService->updateProductUsingCommand($product->id, $invalidData);
     }

@@ -2,13 +2,12 @@
 
 namespace Tests\Feature\Auth;
 
-use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Tests\TestCase;
 
 class AuthenticationTest extends TestCase
 {
-
     public function test_login_page_loads_successfully(): void
     {
         $response = $this->get('/login');
@@ -44,7 +43,7 @@ class AuthenticationTest extends TestCase
         $user = User::create([
             'name' => 'Test',
             'email' => 'john@example.com',
-            'password' => Hash::make('password')
+            'password' => Hash::make('password'),
         ]);
 
         $response = $this->post(route('login.submit'), [
