@@ -9,7 +9,9 @@ use App\Jobs\SendPriceChangeNotification;
 use App\Models\Product;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\ProductRequest;
-
+use App\Actions\Product\CreateProduct;
+use App\DTOs\Product\ProductData;
+use App\Actions\Product\UpdateProduct;
 class ProductController extends Controller
 {
     public function index()
@@ -23,17 +25,9 @@ class ProductController extends Controller
         return view('admin.products.create');
     }
 
-    public function store(ProductRequest $request)
+    public function store(ProductRequest $request, CreateProduct $createProduct)
     {
-        $product = Product::create($request->validated());
-
-        if ($request->hasFile('image')) {
-            $product->image = $request->file('image')->store('', 'public');
-        } else {
-            $product->image = 'product-placeholder.jpg';
-        }
-
-        $product->save();
+        $createProduct->execute(ProductData::fromRequest($request));
 
         return redirect()
             ->route('admin.products.index')
@@ -45,16 +39,10 @@ class ProductController extends Controller
         return view('admin.products.edit', compact('product'));
     }
 
-    public function update(ProductRequest $request, Product $product)
+    public function update(ProductRequest $request, Product $product, UpdateProduct $updateProduct)
     {
         $oldPrice = $product->price;
-        $product->update($request->validated());
-
-        if ($request->hasFile('image')) {
-            $product->image = $request->file('image')->store('', 'public');
-        }
-
-        $product->save();
+        $updateProduct->execute($product, ProductData::fromRequest($request));
 
         if ($oldPrice != $product->price) {
             $notificationEmail = config('app.price_notification_email');

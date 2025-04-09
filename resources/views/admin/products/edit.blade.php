@@ -15,7 +15,7 @@
 
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea id="description" name="description" class="form-control" required>{{ old('description', $product->description) }}</textarea>
+            <textarea id="description" name="description" class="form-control" >{{ old('description', $product->description) }}</textarea>
         </div>
 
         <div class="form-group">
