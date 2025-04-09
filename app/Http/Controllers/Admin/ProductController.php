@@ -44,10 +44,7 @@ class ProductController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $filename = $file->getClientOriginalExtension();
-            $file->move(public_path('uploads'), $filename);
-            $product->image = 'uploads/' . $filename;
+            $product->image = $request->file('image')->store('', 'public');
         } else {
             $product->image = 'product-placeholder.jpg';
         }
@@ -82,10 +79,7 @@ class ProductController extends Controller
         $product->update($request->all());
 
         if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $filename = $file->getClientOriginalExtension();
-            $file->move(public_path('uploads'), $filename);
-            $product->image = 'uploads/' . $filename;
+            $product->image = $request->file('image')->store('', 'public');
         }
 
         $product->save();
