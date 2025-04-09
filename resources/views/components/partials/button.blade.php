@@ -1,0 +1,1 @@
+<button {{ $attributes }} type="submit" class="btn btn-secondary">{{ $text }}</button>

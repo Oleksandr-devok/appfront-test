@@ -16,12 +16,12 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        return view('admin.products', compact('products'));
+        return view('admin.products.index', compact('products'));
     }
 
     public function create()
     {
-        return view('admin.add_product');
+        return view('admin.products.create');
     }
 
     public function store(Request $request)
@@ -59,7 +59,7 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        return view('admin.edit_product', compact('product'));
+        return view('admin.products.edit', compact('product'));
     }
 
     public function update(Request $request, Product $product)

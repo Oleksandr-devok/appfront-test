@@ -1,0 +1,1 @@
+<a {{ $attributes }} href="{{ $route }}" class="btn btn-primary">{{ $text }}</a>

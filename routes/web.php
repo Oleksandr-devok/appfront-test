@@ -16,11 +16,17 @@ Route::middleware(['auth'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
-        Route::get('/products', [AdminProductController::class, 'index'])->name('products');
-        Route::get('/products/add', [AdminProductController::class, 'create'])->name('add.product');
-        Route::post('/products/add', [AdminProductController::class, 'store'])->name('add.product.submit');
-        Route::get('/products/{product}/edit', [AdminProductController::class, 'edit'])->name('edit.product');
-        Route::post('/products/{product}', [AdminProductController::class, 'update'])->name('update.product');
-        Route::delete('/products/{product}', [AdminProductController::class, 'destroy'])->name('delete.product');
+        Route::controller(AdminProductController::class)
+            ->prefix('products')
+            ->name('products.')
+            ->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::get('/create', 'create')->name('create');
+                Route::post('/', 'store')->name('store');
+                Route::get('/{product}/edit', 'edit')->name('edit');
+                Route::put('/{product}', 'update')->name('update');
+                Route::delete('/{product}', 'destroy')->name('destroy');
+            });
+
         Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     });

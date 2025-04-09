@@ -1,33 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $product->name }}</title>
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-    <style>
-        .price-container {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 1rem;
-        }
-        .price-usd {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #e74c3c;
-        }
-        .price-eur {
-            font-size: 1.5rem;
-            color: #7f8c8d;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
+<x-layouts.guest>
         <div class="product-detail">
             <div>
                 @if ($product->image)
-                    <img src="{{ env('APP_URL') }}/{{ $product->image }}" class="product-detail-image">
+                    <img src="/{{ $product->image }}" class="product-detail-image">
                 @endif
             </div>
             <div class="product-detail-info">
@@ -47,8 +22,8 @@
                 </div>
 
                 <div class="action-buttons">
-                    <a href="{{ url('/') }}" class="btn btn-secondary">Back to Products</a>
-                    <button class="btn btn-primary">Add to Cart</button>
+                    <x-partials.button-link text="Back to Products" route="{{ url('/') }}" class="btn btn-secondary" />
+                    <x-partials.button text="Add to Cart" class="btn btn-primary" />
                 </div>
 
                 <p style="margin-top: 20px; font-size: 0.9rem; color: #7f8c8d;">
@@ -56,6 +31,4 @@
                 </p>
             </div>
         </div>
-    </div>
-</body>
-</html>
+</x-layouts.guest>

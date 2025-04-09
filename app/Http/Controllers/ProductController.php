@@ -12,7 +12,7 @@ class ProductController extends Controller
         $products = Product::all();
         $exchangeRate = $this->getExchangeRate();
 
-        return view('products.list', compact('products', 'exchangeRate'));
+        return view('products.index', compact('products', 'exchangeRate'));
     }
 
     public function show(Request $request, Product $product)
