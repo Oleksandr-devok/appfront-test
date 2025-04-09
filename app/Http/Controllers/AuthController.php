@@ -15,7 +15,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         if (Auth::attempt($request->except('_token'))) {
-            return redirect()->route('admin.products');
+            return redirect()->route('admin.products.index');
         }
 
         return redirect()->back()->with('error', 'Invalid login credentials');

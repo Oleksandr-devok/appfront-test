@@ -53,8 +53,9 @@
             </div>
         @endif
 
-        <form action="{{ route('admin.update.product', $product->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="form-group">
                 <label for="name">Product Name</label>
                 <input type="text" id="name" name="name" class="form-control" value="{{ old('name', $product->name) }}" required>
@@ -84,7 +85,7 @@
 
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Update Product</button>
-                <a href="{{ route('admin.products') }}" class="btn btn-secondary">Cancel</a>
+                <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">Cancel</a>
             </div>
         </form>
     </div>
