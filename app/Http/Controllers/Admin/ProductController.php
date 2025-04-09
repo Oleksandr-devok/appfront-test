@@ -6,10 +6,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\SendPriceChangeNotification;
-use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
@@ -24,24 +23,9 @@ class ProductController extends Controller
         return view('admin.products.create');
     }
 
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|min:3',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        $product = Product::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'price' => $request->price
-        ]);
+        $product = Product::create($request->validated());
 
         if ($request->hasFile('image')) {
             $product->image = $request->file('image')->store('', 'public');
@@ -51,7 +35,9 @@ class ProductController extends Controller
 
         $product->save();
 
-        return redirect()->route('admin.products.index')->with('success', 'Product added successfully');
+        return redirect()
+            ->route('admin.products.index')
+            ->with('success', 'Product added successfully');
     }
 
     public function edit(Product $product)
@@ -59,24 +45,10 @@ class ProductController extends Controller
         return view('admin.products.edit', compact('product'));
     }
 
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
-        // Validate the name field
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|min:3',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        // Store the old price before updating
         $oldPrice = $product->price;
-
-        $product->update($request->all());
+        $product->update($request->validated());
 
         if ($request->hasFile('image')) {
             $product->image = $request->file('image')->store('', 'public');
@@ -84,11 +56,8 @@ class ProductController extends Controller
 
         $product->save();
 
-        // Check if price has changed
         if ($oldPrice != $product->price) {
-            // Get notification email from env
             $notificationEmail = config('app.price_notification_email');
-
             try {
                 SendPriceChangeNotification::dispatch(
                     $product,
@@ -101,13 +70,17 @@ class ProductController extends Controller
             }
         }
 
-        return redirect()->route('admin.products.index')->with('success', 'Product updated successfully');
+        return redirect()
+            ->route('admin.products.index')
+            ->with('success', 'Product updated successfully');
     }
 
     public function destroy(Product $product)
     {
         $product->delete();
 
-        return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully');
+        return redirect()
+            ->route('admin.products.index')
+            ->with('success', 'Product deleted successfully');
     }
 }
