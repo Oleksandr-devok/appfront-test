@@ -53,6 +53,6 @@ class ProductController extends Controller
 
         }
 
-        return env('EXCHANGE_RATE', 0.85);
+        return config('app.exchange_rate');
     }
 }

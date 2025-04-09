@@ -76,7 +76,7 @@ class UpdateProduct extends Command
             if (isset($data['price']) && $oldPrice != $product->price) {
                 $this->info("Price changed from {$oldPrice} to {$product->price}.");
 
-                $notificationEmail = env('PRICE_NOTIFICATION_EMAIL', 'admin@example.com');
+                $notificationEmail = config('app.price_notification_email');
 
                 try {
                     SendPriceChangeNotification::dispatch(
