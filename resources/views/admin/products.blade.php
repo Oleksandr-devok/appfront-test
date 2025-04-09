@@ -45,7 +45,7 @@
             <h1>Admin - Products</h1>
             <div>
                 <a href="{{ route('admin.add.product') }}" class="btn btn-primary">Add New Product</a>
-                <a href="{{ route('logout') }}" class="btn btn-secondary">Logout</a>
+                <a href="{{ route('admin.logout') }}" class="btn btn-secondary">Logout</a>
             </div>
         </div>
 
