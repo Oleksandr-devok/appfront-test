@@ -5,20 +5,21 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
 use App\Models\Product;
 
-class PriceChangeNotification extends Mailable
+class PriceChangeNotification extends Mailable implements ShouldQueue
 {
-    public $product;
-    public $oldPrice;
-    public $newPrice;
+    use Queueable, SerializesModels;
+
+    private Product $product;
+    private float $oldPrice;
+    private float $newPrice;
 
     /**
      * Create a new message instance.
-     *
-     * @return void
      */
-    public function __construct($product, $oldPrice, $newPrice)
+    public function __construct(Product $product, float $oldPrice, float $newPrice)
     {
         $this->product = $product;
         $this->oldPrice = $oldPrice;
@@ -27,12 +28,16 @@ class PriceChangeNotification extends Mailable
 
     /**
      * Build the message.
-     *
-     * @return $this
      */
-    public function build()
+    public function build(): self
     {
-        return $this->subject('Product Price Change Notification')
-                    ->view('emails.price-change');
+        return $this
+            ->subject('Product Price Change Notification')
+            ->view('emails.price-change')
+            ->with([
+                'product' => $this->product,
+                'oldPrice' => number_format($this->oldPrice, 2),
+                'newPrice' => number_format($this->newPrice, 2),
+            ]);
     }
 }

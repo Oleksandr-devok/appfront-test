@@ -191,3 +191,136 @@ h1 {
   gap: 1rem;
   margin-top: auto;
 }
+
+.admin-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+textarea.form-control {
+  height: 150px;
+}
+
+.error-message {
+  color: red;
+  margin-top: 5px;
+  font-size: 0.9em;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.admin-table th, .admin-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+.admin-table th {
+  background-color: #f2f2f2;
+}
+.admin-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.success-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+.admin-container-list {
+  padding: 20px;
+}
+
+.price-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.price-usd {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #e74c3c;
+}
+
+.price-eur {
+  font-size: 1.2rem;
+  color: #7f8c8d;
+}
+
+.login-container {
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-login {
+  width: 100%;
+  padding: 10px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.login-help {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.login-help p {
+  margin: 5px 0;
+}
+
+.d-none {
+  display: none;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: #fff;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
