@@ -1,0 +1,211 @@
+/* Admin Container Styles */
+.admin-container {
+    padding: 20px;
+}
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.admin-table th, .admin-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+.admin-table th {
+    background-color: #f2f2f2;
+}
+.admin-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+.success-message {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+.logout-form {
+    display: inline;
+}
+.logout-btn {
+    background: none;
+    border: none;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+/* Pagination Styles */
+.flex {
+    display: flex;
+}
+.items-center {
+    align-items: center;
+}
+.justify-between {
+    justify-content: space-between;
+}
+.flex-1 {
+    flex: 1 1 0%;
+}
+.hidden {
+    display: none;
+}
+.sm\:flex {
+    display: flex;
+}
+.sm\:items-center {
+    align-items: center;
+}
+.sm\:justify-between {
+    justify-content: space-between;
+}
+.sm\:flex-1 {
+    flex: 1 1 0%;
+}
+.sm\:hidden {
+    display: none;
+}
+.relative {
+    position: relative;
+}
+.inline-flex {
+    display: inline-flex;
+}
+.items-center {
+    align-items: center;
+}
+.px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+.py-2 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+.text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+}
+.font-medium {
+    font-weight: 500;
+}
+.text-gray-500 {
+    color: #6b7280;
+}
+.bg-white {
+    background-color: #ffffff;
+}
+.border {
+    border-width: 1px;
+}
+.border-gray-300 {
+    border-color: #d1d5db;
+}
+.cursor-default {
+    cursor: default;
+}
+.leading-5 {
+    line-height: 1.25rem;
+}
+.rounded-md {
+    border-radius: 0.375rem;
+}
+.ml-3 {
+    margin-left: 0.75rem;
+}
+.text-gray-700 {
+    color: #374151;
+}
+.hover\:text-gray-500:hover {
+    color: #6b7280;
+}
+.focus\:outline-none:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+.focus\:ring:focus {
+    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+.ring-gray-300 {
+    --tw-ring-color: #d1d5db;
+}
+.focus\:border-blue-300:focus {
+    border-color: #93c5fd;
+}
+.active\:bg-gray-100:active {
+    background-color: #f3f4f6;
+}
+.active\:text-gray-700:active {
+    color: #374151;
+}
+.transition {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+.ease-in-out {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.duration-150 {
+    transition-duration: 150ms;
+}
+.text-gray-400 {
+    color: #9ca3af;
+}
+.z-0 {
+    z-index: 0;
+}
+.shadow-sm {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+.rounded-md {
+    border-radius: 0.375rem;
+}
+.rtl\:flex-row-reverse {
+    flex-direction: row;
+}
+.px-2 {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+.rounded-l-md {
+    border-top-left-radius: 0.375rem;
+    border-bottom-left-radius: 0.375rem;
+}
+.w-5 {
+    width: 1.25rem;
+}
+.h-5 {
+    height: 1.25rem;
+}
+.-ml-px {
+    margin-left: -1px;
+}
+.focus\:z-10:focus {
+    z-index: 10;
+}
+.rounded-r-md {
+    border-top-right-radius: 0.375rem;
+    border-bottom-right-radius: 0.375rem;
+}
+.hover\:text-gray-400:hover {
+    color: #9ca3af;
+}
+.mt-4 {
+    margin-top: 1rem;
+}
+
+/* Additional styles to ensure correct pagination order */
+.relative.z-0.inline-flex {
+    flex-direction: row;
+} 

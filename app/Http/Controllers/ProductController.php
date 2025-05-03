@@ -2,59 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Product;
+use App\Http\Requests\ShowProductRequest;
+use App\Repositories\ProductRepositoryInterface;
+use App\Services\ExchangeRateService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\View\View;
 
 class ProductController extends Controller
 {
-    public function index()
+    protected $productRepository;
+    protected $exchangeRateService;
+
+    public function __construct(
+        ProductRepositoryInterface $productRepository,
+        ExchangeRateService $exchangeRateService
+    ) {
+        $this->productRepository = $productRepository;
+        $this->exchangeRateService = $exchangeRateService;
+    }
+
+    public function index(): View
     {
-        $products = Product::all();
-        $exchangeRate = $this->getExchangeRate();
+        $products = $this->productRepository->paginate(12);
+        $exchangeRate = $this->exchangeRateService->getExchangeRate();
 
         return view('products.list', compact('products', 'exchangeRate'));
     }
 
-    public function show(Request $request)
+    public function show(ShowProductRequest $request): View
     {
-        $id = $request->route('product_id');
-        $product = Product::find($id);
-        $exchangeRate = $this->getExchangeRate();
+        $product = $this->productRepository->findOrFail($request->product_id);
+        $exchangeRate = $this->exchangeRateService->getExchangeRate();
 
         return view('products.show', compact('product', 'exchangeRate'));
-    }
-
-    /**
-     * @return float
-     */
-    private function getExchangeRate()
-    {
-        try {
-            $curl = curl_init();
-
-            curl_setopt_array($curl, [
-                CURLOPT_URL => "https://open.er-api.com/v6/latest/USD",
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_TIMEOUT => 5,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => "GET",
-            ]);
-
-            $response = curl_exec($curl);
-            $err = curl_error($curl);
-
-            curl_close($curl);
-
-            if (!$err) {
-                $data = json_decode($response, true);
-                if (isset($data['rates']['EUR'])) {
-                    return $data['rates']['EUR'];
-                }
-            }
-        } catch (\Exception $e) {
-
-        }
-
-        return env('EXCHANGE_RATE', 0.85);
     }
 }
