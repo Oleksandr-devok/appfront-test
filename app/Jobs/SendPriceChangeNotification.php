@@ -2,37 +2,23 @@
 
 namespace App\Jobs;
 
+use App\Mail\PriceChangeNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Log;
-use App\Mail\PriceChangeNotification;
-use App\Models\Product;
 
 class SendPriceChangeNotification implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable;
-
-    protected $product;
-    protected $oldPrice;
-    protected $newPrice;
-    protected $email;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($product, $oldPrice, $newPrice, $email)
-    {
-        $this->product = $product;
-        $this->oldPrice = $oldPrice;
-        $this->newPrice = $newPrice;
-        $this->email = $email;
-    }
+    public function __construct(protected $product, protected $oldPrice, protected $newPrice, protected $email) {}
 
     /**
      * Execute the job.
@@ -41,12 +27,11 @@ class SendPriceChangeNotification implements ShouldQueue
      */
     public function handle()
     {
-            Mail::to($this->email)
-                ->send(new PriceChangeNotification(
-                    $this->product,
-                    $this->oldPrice,
-                    $this->newPrice
-                ));
-
+        Mail::to($this->email)
+            ->send(new PriceChangeNotification(
+                $this->product,
+                $this->oldPrice,
+                $this->newPrice
+            ));
     }
 }
