@@ -1,28 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products</title>
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-    <style>
-        .price-container {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 1rem;
-        }
-        .price-usd {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #e74c3c;
-        }
-        .price-eur {
-            font-size: 1.2rem;
-            color: #7f8c8d;
-        }
-    </style>
-</head>
-<body>
+@extends('../layouts.main')
+@section('content')
+@section('title', 'Products')
     <div class="container">
         <h1>Products</h1>
 
@@ -50,8 +28,7 @@
         </div>
 
         <div style="margin-top: 20px; text-align: center; font-size: 0.9rem; color: #7f8c8d;">
-            <p>Exchange Rate: 1 USD = {{ number_format($exchangeRate, 4) }} EUR</p>
+            <p>Exchange Rate: 1 USD = {{ $exchangeRate }} EUR</p>
         </div>
     </div>
-</body>
-</html>
+@endsection

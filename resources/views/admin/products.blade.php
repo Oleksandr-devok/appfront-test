@@ -1,46 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Products</title>
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-    <style>
-        .admin-container {
-            padding: 20px;
-        }
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .admin-table th, .admin-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        .admin-table th {
-            background-color: #f2f2f2;
-        }
-        .admin-table tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        .success-message {
-            background-color: #d4edda;
-            color: #155724;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 4px;
-        }
-    </style>
-</head>
-<body>
-    <div class="admin-container">
+@extends('../layouts.main')
+@section('content')
+@section('title', 'Products')
+    <div class="admin-container-list">
         <div class="admin-header">
             <h1>Admin - Products</h1>
             <div>
@@ -54,11 +15,13 @@
                 {{ session('success') }}
             </div>
         @endif
+        <div class="success-message delete d-none">
+        </div>
 
         <table class="admin-table">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>No</th>
                     <th>Image</th>
                     <th>Name</th>
                     <th>Price</th>
@@ -68,7 +31,7 @@
             <tbody>
                 @foreach($products as $product)
                 <tr>
-                    <td>{{ $product->id }}</td>
+                <td>{{ $loop->index + 1 }}</td>
                     <td>
                         @if($product->image)
                             <img src="{{ env('APP_URL') }}/{{ $product->image }}" width="50" height="50" alt="{{ $product->name }}">
@@ -78,12 +41,41 @@
                     <td>${{ number_format($product->price, 2) }}</td>
                     <td>
                         <a href="{{ route('admin.edit.product', $product->id) }}" class="btn btn-primary">Edit</a>
-                        <a href="{{ route('admin.delete.product', $product->id) }}" class="btn btn-secondary" onclick="return confirm('Are you sure you want to delete this product?')">Delete</a>
+                        <a href="javascript:void(0);" class="btn btn-danger" onclick="deleteProduct({{ $product->id }})">Delete</a>
                     </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
-</body>
-</html>
+    <script>
+        function deleteProduct(productId) {
+            if (confirm('Are you sure you want to delete this product?')) {
+                fetch(`/admin/products/${productId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json',
+                    },
+                })
+                .then(response => {
+                    if (response.ok) {
+                        const successMessage = document.querySelector('.success-message.delete');
+                        successMessage.classList.remove('d-none');
+                        successMessage.textContent = "Product deleted successfully";
+                        setTimeout(() => {
+                            successMessage.classList.add('d-none');
+                            window.location.href = "{{ route('admin.products') }}";
+                        }, 3000);
+                    } else {
+                        alert('Failed to delete the product.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Something went wrong.');
+                });
+            }
+        }
+    </script>
+@endsection

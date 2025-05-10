@@ -1,48 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Product</title>
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-    <style>
-        .admin-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        .form-control {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        textarea.form-control {
-            height: 150px;
-        }
-        .product-image {
-            max-width: 200px;
-            margin-bottom: 10px;
-        }
-        .error-message {
-            color: red;
-            margin-top: 5px;
-            font-size: 0.9em;
-        }
-    </style>
-</head>
-<body>
+@extends('../layouts.main')
+@section('content')
+@section('title', 'Edit Products')
     <div class="admin-container">
         <h1>Edit Product</h1>
 
+        <!-- Display Validation Errors -->
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -53,33 +15,43 @@
             </div>
         @endif
 
+        <!-- Form to Edit Product -->
         <form action="{{ route('admin.update.product', $product->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="form-group">
                 <label for="name">Product Name</label>
-                <input type="text" id="name" name="name" class="form-control" value="{{ old('name', $product->name) }}" required>
+                <input type="text" id="name" name="name" class="form-control" value="{{ old('name', $product->name) }}" required aria-describedby="nameHelp">
                 @error('name')
                     <div class="error-message">{{ $message }}</div>
                 @enderror
+                <small id="nameHelp" class="form-text text-muted">Enter the product's name.</small>
             </div>
 
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea id="description" name="description" class="form-control" required>{{ old('description', $product->description) }}</textarea>
+                <textarea id="description" name="description" class="form-control" required aria-describedby="descriptionHelp">{{ old('description', $product->description) }}</textarea>
+                <small id="descriptionHelp" class="form-text text-muted">Provide a detailed description of the product.</small>
             </div>
 
             <div class="form-group">
                 <label for="price">Price</label>
-                <input type="number" id="price" name="price" step="0.01" class="form-control" value="{{ old('price', $product->price) }}" required>
+                <input type="number" id="price" name="price" step="0.01" class="form-control" value="{{ old('price', $product->price) }}" required aria-describedby="priceHelp">
+                <small id="priceHelp" class="form-text text-muted">Enter the product price.</small>
             </div>
 
             <div class="form-group">
                 <label for="image">Current Image</label>
                 @if($product->image)
-                    <img src="{{ env('APP_URL') }}/{{ $product->image }}" class="product-image" alt="{{ $product->name }}">
+                    <div>
+                        <img src="{{ env('APP_URL') }}/{{ $product->image }}" class="product-image" alt="{{ $product->name }}">
+                        <p>Current Image</p>
+                    </div>
+                @else
+                    <p>No image available</p>
                 @endif
-                <input type="file" id="image" name="image" class="form-control">
-                <small>Leave empty to keep current image</small>
+                <input type="file" id="image" name="image" class="form-control" aria-describedby="imageHelp">
+                <small id="imageHelp" class="form-text text-muted">Leave empty to retain the current image.</small>
             </div>
 
             <div class="form-group">
@@ -88,5 +60,4 @@
             </div>
         </form>
     </div>
-</body>
-</html>
+@endsection
